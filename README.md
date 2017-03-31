@@ -12,4 +12,4 @@ For issues and source code you can find Unreel on [github](https://github.com/li
 
 Just to talk about, go to [unreel.softlab.pt](http://unreel.softlab.pt).
 
-Binaries and installers: [v1.0.0](https://github.com/linux-man/unreel/releases).
+Binaries and installers: [v1.0.1](https://github.com/linux-man/unreel/releases).

@@ -517,8 +517,8 @@ window.onload = () => {
     controls.style.display = "none";
     if(mode == "text" || mode == "note") {
       mytextarea.style.display = "block";
-      mytextarea.focus();
       tinymce.activeEditor.show();
+      mytextarea.focus();
       webview.send("startEdit");
       let a;
       if(mode == "note") {
