@@ -1,0 +1,22 @@
+/*********************************************
+ * MATHQUILL PLUGIN
+ *********************************************/
+
+.rendered-latex {
+  visibility: hidden;
+}
+
+.rendered-latex > .selectable {
+  visibility: visible;
+}
+
+.rendered-latex > :not(.selectable) {
+  display: none;
+}
+
+/*********************************************
+ * CHARTJS PLUGIN
+ *********************************************/
+div[data-chart] {/*cl*/
+  display: none;
+}

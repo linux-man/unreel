@@ -1,0 +1,66 @@
+{
+  "name": "unreel",
+  "version": "1.0.0",
+  "license": "GPL",
+  "description": "Reveal your ideas. With Unreel you can create amazing REVEAL.JS presentations",
+  "author": "Caldas Lopes <joao.caldas.lopes@gmail.com>",
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/linux-man/unreel#readme",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "pack": "electron-packager . unreel --platform=linux --arch=x64; electron-packager . unreel --platform=win32 --arch=x64 --icon='build/icon.ico'; electron-packager . unreel --platform=darwin --arch=x64 --icon='build/icon.icns'",
+    "build": "build --dir",
+    "dist": "build",
+    "dist:win": "build --win"
+  },
+
+  "build": {
+    "appId": "pt.softlab.unreel",
+    "asar": false,
+    "fileAssociations": [{"ext": "reel", "name": "UNREEL"}],
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"],
+      "category": "Office",
+      "packageCategory": "Contrib",
+      "executableName": "unreel"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": true,
+      "installerHeaderIcon": "build/icon.ico"
+    }
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linux-man/unreel.git"
+  },
+  "keywords": [
+    "unreel",
+    "presentation",
+    "reveal"
+  ],
+  "bugs": {
+    "url": "https://github.com/linux-man/unreel/issues"
+  },
+
+  "devDependencies": {
+    "electron": "^1.6.2",
+    "electron-builder": "^16.4.2",
+    "electron-packager": "^8.6.0"
+  },
+  "dependencies": {
+    "archiver": "^1.3.0",
+    "beautify": "0.0.8",
+    "extract-zip": "^1.6.0",
+    "fs-extra": "^2.1.2",
+    "probe-image-size": "^3.0.0",
+    "sanitize-filename": "^1.6.1",
+    "tmp": "0.0.31"
+  }
+}

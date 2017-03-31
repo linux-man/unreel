@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/reveal.css">
+    <link rel="stylesheet" href="./css/theme/black.css" id = "theme">
+    <script type="text/javascript">
+      let remote = require("electron").remote;
+      let appPath = remote.getGlobal("appPath");
+      let csslink = document.createElement("link");
+      csslink.setAttribute("rel", "stylesheet");
+      csslink.setAttribute("type", "text/css");
+      csslink.setAttribute("href", appPath + "/js/quicksettings/unreel.css");
+      document.getElementsByTagName("head")[0].appendChild(csslink);
+      csslink = document.createElement("link");
+      csslink.setAttribute("rel", "stylesheet");
+      csslink.setAttribute("type", "text/css");
+      csslink.setAttribute("href", appPath + "/css/unreel.css");
+      document.getElementsByTagName("head")[0].appendChild(csslink);
+      csslink = document.createElement("link");
+      csslink.setAttribute("rel", "stylesheet");
+      csslink.setAttribute("type", "text/css");
+      csslink.setAttribute("href", appPath + "/js/tinymce/plugins/equationeditor/mathquill.css");
+      document.getElementsByTagName("head")[0].appendChild(csslink);
+      csslink = document.createElement("link");
+      csslink.setAttribute("rel", "stylesheet");
+      csslink.setAttribute("type", "text/css");
+      csslink.setAttribute("href", appPath + "/js/tinymce/plugins/equationeditor/equation_editor.css");
+      document.getElementsByTagName("head")[0].appendChild(csslink);
+    </script>
+    <title>Unreel</title>
+  </head>
+  <body>
+    <div id="mytoolbar"></div>
+    <div id="wait"></div>
+    <div id="reveal" class="reveal slide center">
+      <div id="slides" class="slides">
+        <section class="present" id="mytextarea"></section>
+      </div>
+    </div>
+    <div id="controls">
+      <div id="editB" class="button">
+        <span class="tooltip bottom">Edit slide</span>
+      </div>
+      <div id="editNotesB" class="button">
+        <span class="tooltip bottom">Edit notes</span>
+      </div>
+      <div id="attributesB" class="button">
+        <span class="tooltip bottom">Slide attributes</span>
+      </div>
+      <div id="propertiesB" class="button">
+        <span class="tooltip bottom">Configuration</span>
+      </div>
+      <div id="screen" class="button"></div>
+      <div id="screenFolder">
+        <div id="fullScreenB" class="button">
+          <span class="tooltip right">Primary display</span>
+        </div>
+        <div id="fullScreen2B" class="button">
+          <span class="tooltip right">Secondary display</span>
+        </div>
+      </div>
+      <div id="docs" class="button"></div>
+      <div id="docsFolder">
+        <div id="newB" class="button">
+          <span class="tooltip right">New presentation</span>
+        </div>
+        <div id="loadB" class="button">
+          <span class="tooltip right">Load presentation</span>
+        </div>
+        <div id="saveB" class="button">
+          <span class="tooltip right">Save presentation</span>
+        </div>
+      </div>
+      <div id="printB" class="button">
+        <span class="tooltip bottom">Print to PDF</span>
+      </div>
+      <div id="minimizeB" class="button small">
+        <span class="tooltip bottom">Minimize</span>
+      </div>
+      <div id="fullscreenB" class="button small">
+        <span class="tooltip bottom">Fullscreen</span>
+      </div>
+      <div id="quitB" class="button small">
+        <span class="tooltip bottom">Quit</span>
+      </div>
+      <div id="delB" class="button">
+        <span class="tooltip left">Delete slide</span>
+      </div>
+      <div id="addRightB" class="button">
+        <span class="tooltip left">Add slide to right</span>
+      </div>
+      <div id="addDownB" class="button">
+        <span class="tooltip top">Add slide to bottom</span>
+      </div>
+      <div id="moveLeftB" class="button">
+        <span class="tooltip right">Move slide left</span>
+      </div>
+      <div id="moveRightB" class="button">
+        <span class="tooltip left">Move slide right</span>
+      </div>
+      <div id="moveUpB" class="button">
+        <span class="tooltip bottom">Move slide up</span>
+      </div>
+      <div id="moveDownB" class="button">
+        <span class="tooltip top">Move slide down</span>
+      </div>
+    </div>
+    <div id=attributesPanel></div>
+    <div id=propertiesPanel></div>
+    <div id="editorControls">
+      <div id="saveEditB" class="button small">
+        <span class="tooltip right">Save</span>
+      </div>
+      <div id="cancelEditB" class="button small">
+        <span class="tooltip right">Cancel</span>
+      </div>
+    </div>
+    <div id="backB" class="button"></div>
+    <webview id="webview" allowpopups></webview>
+    <script>window.$ = window.jQuery = require(appPath + '/js/jquery.min.js');</script>
+    <script type="text/javascript">
+      document.querySelector("#webview").setAttribute("preload", appPath + "/js/webview.js");
+      let script = document.createElement("script");
+      script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", appPath + "/js/tinymce/plugins/equationeditor/mathquill.min.js");
+      document.querySelector("head").appendChild(script);
+      script = document.createElement("script");
+      script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", appPath + "/js/tinymce/tinymce.js");
+      document.querySelector("head").appendChild(script);
+      script = document.createElement("script");
+      script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", appPath + "/js/quicksettings/quicksettings.js");
+      document.querySelector("head").appendChild(script);
+      script = document.createElement("script");
+      script.setAttribute("type", "text/javascript");
+      script.setAttribute("src", appPath + "/js/unreel.js");
+      document.querySelector("head").appendChild(script);
+    </script>
+  </body>
+</html>

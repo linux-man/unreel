@@ -1,0 +1,420 @@
+body {
+  color: white;
+}
+
+table td {
+  border: solid grey 1px !important;
+ }
+
+img::selection { background-color: transparent; }
+
+.reveal .slides section .fragment {
+  opacity: 1;
+  visibility: visible;
+  border: solid white 2px;
+}
+
+div[data-chart] {
+  -webkit-user-select: none;
+  overflow: hidden;
+  color: grey;
+  background-color: grey;
+  border: solid white 2px;
+  margin: auto;
+}
+
+#mytoolbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  display:-webkit-box;
+  -webkit-box-pack:center;
+  -webkit-box-align:center;
+  /* W3C */
+  display:box;
+  box-pack:center;
+  box-align:center;
+}
+
+#slides {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin:0;
+}
+
+#mytextarea {
+  top: 100px;
+  position: absolute;
+  overflow-y: auto;
+  background-color: rgba(128,128,128,0.5)
+}
+
+#wait {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(../fonts/hourglass.svg);
+  background-size: 128px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  visibility: hidden;
+  z-index: 200;
+}
+
+#webview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  visibility: hidden;
+}
+
+#editorControls {
+  position: absolute;
+  display: none;
+  left: 0px;
+  top: 0px;
+  z-index: 100;
+}
+
+#attributesPanel, #propertiesPanel {
+  position: absolute;
+  display: none;
+  width: 680px;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 90;
+}
+
+#controls {
+  z-index: 100;
+  visibility: hidden;
+}
+
+/*------------------------------- Buttons ---------------------------------------*/
+.button {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  opacity: 0.3;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  z-index: 10;
+  transition: 0.2s;
+}
+
+.small {
+  width: 48px;
+  height: 48px;
+  background-size: 24px;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:hover .mce-tooltip {
+    visibility: visible;
+}
+
+#backB {
+  background-image: url(../fonts/caret-left.svg);
+  background-color: grey;
+  left: 36px;
+  top: 36px;
+  display: none;
+}
+
+#editB {
+  background-image: url(../fonts/pencil.svg);
+  background-color: lime;
+  left: 36px;
+  top: 36px;
+}
+
+#editNotesB {
+  background-image: url(../fonts/sticky-note-o.svg);
+  background-color: limegreen;
+  left: 100px;
+  top: 36px;
+}
+
+#attributesB {
+  background-image: url(../fonts/cog.svg);
+  background-color: green;
+  left: 164px;
+  top: 36px;
+}
+
+#propertiesB {
+  background-image: url(../fonts/cogs.svg);
+  background-color: olive;
+  left: 228px;
+  top: 36px;
+}
+
+#screen {
+  background-image: url(../fonts/fullscreen.svg);
+  background-color: orange;
+  left: 292px;
+  top: 36px;
+}
+
+#screen:hover + #screenFolder, #docs:hover + #docsFolder {
+  visibility: visible;
+}
+
+#screenFolder, #docsFolder {
+  visibility: hidden;
+}
+
+#screenFolder:hover, #docsFolder:hover {
+  visibility: visible;
+}
+
+#fullScreenB {
+  background-image: url(../fonts/laptop.svg);
+  background-color: orange;
+  left: 292px;
+  top: 100px;
+}
+
+#fullScreen2B {
+  background-image: url(../fonts/television.svg);
+  background-color: orange;
+  left: 292px;
+  top: 164px;
+}
+
+#docs {
+  background-image: url(../fonts/folder-open-o.svg);
+  background-color: grey;
+  left: 356px;
+  top: 36px;
+}
+
+#newB {
+  background-image: url(../fonts/file-o.svg);
+  background-color: grey;
+  left: 356px;
+  top: 100px;
+}
+
+#loadB {
+  background-image: url(../fonts/file-text-o.svg);
+  background-color: grey;
+  left: 356px;
+  top: 164px;
+}
+
+#saveB {
+  background-image: url(../fonts/save.svg);
+  background-color: grey;
+  left: 356px;
+  top: 228px;
+}
+
+#printB {
+  background-image: url(../fonts/print.svg);
+  background-color: slategrey;
+  left: 420px;
+  top: 36px;
+}
+
+#minimizeB {
+  background-image: url(../fonts/angle-down.svg);
+  background-color: yellow;
+  right: 132px;
+  top: 36px;
+}
+
+#fullscreenB {
+  background-image: url(../fonts/angle-up.svg);
+  background-color: orange;
+  right: 84px;
+  top: 36px;
+}
+
+#quitB {
+  background-image: url(../fonts/power-off.svg);
+  background-color: red;
+  right: 36px;
+  top: 36px;
+}
+
+#delB {
+  background-image: url(../fonts/remove.svg);
+  background-color: red;
+  right: 36px;
+  top: 25%;
+}
+
+#addRightB {
+  background-image: url(../fonts/plus.svg);
+  background-color: green;
+  right: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#addDownB {
+  background-image: url(../fonts/plus.svg);
+  background-color: green;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#moveLeftB {
+  background-image: url(../fonts/caret-left.svg);
+  background-color: blue;
+  background-position: right;
+  left: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#moveRightB {
+  background-image: url(../fonts/caret-right.svg);
+  background-color: blue;
+  background-position: left;
+  right: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#moveUpB {
+  background-image: url(../fonts/caret-up.svg);
+  background-color: blue;
+  background-position: bottom;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#moveDownB {
+  background-image: url(../fonts/caret-down.svg);
+  background-color: blue;
+  background-position: top;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#saveEditB {
+  background-image: url(../fonts/check.svg);
+  background-color: green;
+  top: 0;
+  left: 0;
+}
+
+#cancelEditB {
+  background-image: url(../fonts/remove.svg);
+  background-color: red;
+  top: 48px;
+  left: 0;
+}
+
+/*------------------------------- Tooltip ---------------------------------------*/
+.button .tooltip {
+  font-family: "Sans-serif";
+  font-size: 12px;
+  opacity: 0.9;
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button:hover .tooltip {
+    visibility: visible;
+}
+
+.button .left {
+  top: 22px;
+  right: 110%;
+}
+
+.button .left::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.button .right {
+  top: 22px;
+  left: 110%;
+}
+
+.button.small .right {
+  top: 12px;
+  right: 110%;
+}
+
+.button .right::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.button .top {
+  width: 120px;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.button .top::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.button .bottom {
+  width: 120px;
+  top: 110%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.button .bottom::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
