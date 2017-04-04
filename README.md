@@ -10,6 +10,6 @@ With Unreel you can create amazing REVEAL.JS presentations without knowing Web t
 
 For issues and source code you can find Unreel on [github](https://github.com/linux-man/unreel).
 
-Just to talk about, go to [unreel.softlab.pt](http://unreel.softlab.pt).
+Just to talk about, go to [forums.softlab.pt](http://forums.softlab.pt).
 
-Binaries and installers: [v1.0.1](https://github.com/linux-man/unreel/releases).
+[Binaries and installers](https://github.com/linux-man/unreel/releases).

@@ -1,5 +1,5 @@
 "use strict";
-global.debug = false;
+global.debug = false;//For debug only
 global.notSaved = {value: false};
 const electron = require("electron");
 const {app, BrowserWindow, dialog, globalShortcut} = electron;
@@ -9,11 +9,12 @@ const fs = require("fs-extra");
 
 let mainWindow;
 let splash;
+let hAccel = process.platform !== "linux";
 global.appPath = __dirname;
 global.homePath = app.getPath("home");
 
 //---------------------------------------  Load settings  --------------------------------
-global.settings = {zoom: 1, haccel: false, fullscreen: false, maximized: false};
+global.settings = {haccel: hAccel, fullscreen: false, maximized: false};
 let dataPath = path.join(app.getPath("appData"), "unreel");
 fs.ensureDirSync(dataPath);
 let settings;
@@ -21,7 +22,7 @@ try {
   settings = fs.readJsonSync(path.join(dataPath, "settings"), {throws: false});
 } catch(err) {};
 if(settings) global.settings = Object.assign(global.settings, settings);
-if(!global.settings.haccel) app.disableHardwareAcceleration();
+if(process.platform !== "darwin" && !global.settings.haccel) app.disableHardwareAcceleration();
 
 app.on("ready", () => {
   if (process.argv.length > 1 && path.isAbsolute(process.argv[1]) && fs.existsSync(process.argv[1])) global.argv = process.argv[1];
@@ -46,7 +47,7 @@ app.on("ready", () => {
 
   mainWindow.webContents.on("did-finish-load", () => {
     splash.close();
-    if(global.debug) mainWindow.show();//For debug only
+    if(global.debug) mainWindow.show();
   });
 
 });

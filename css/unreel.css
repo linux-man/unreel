@@ -8,6 +8,11 @@ table td {
 
 img::selection { background-color: transparent; }
 
+.reveal .slides section .fragment.current-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 .reveal .slides section .fragment {
   opacity: 1;
   visibility: visible;

@@ -507,8 +507,8 @@ window.onload = () => {
   .hideTitle("plain ")
   .hideControl("plain ");
 
-  //newPresentation();
-  loadPresentation(path.join(appPath, "intro/intro.reel"));
+  newPresentation();
+  loadPresentation(path.join(appPath, "intro/Intro.reel"));
   let argv = remote.getGlobal("argv");
   if(argv) loadPresentation(argv);
 
@@ -676,7 +676,7 @@ window.onload = () => {
     if(e.key == "-" && (e.metaKey || e.ctrlKey)) webFrame.setZoomFactor(Math.max(webFrame.getZoomFactor() - 0.1, 0.5));
     if(e.key == "0" && (e.metaKey || e.ctrlKey)) webFrame.setZoomFactor(1);
     if(e.key == "p" && (e.metaKey || e.ctrlKey)) printPDF();
-    if(e.key == "h" && (e.metaKey || e.ctrlKey)) {
+    if(process.platform !== "darwin" && e.key == "h" && (e.metaKey || e.ctrlKey)) {
       remote.getGlobal("settings").haccel = !remote.getGlobal("settings").haccel;
       let text = "disabled";
       if(remote.getGlobal("settings").haccel) text = "enabled";
@@ -770,7 +770,6 @@ window.onload = () => {
   };
 
   window.onbeforeunload = () => {
-    remote.getGlobal("settings").zoom = webFrame.getZoomFactor();
     remote.getGlobal("settings").fullscreen = win.isFullScreen();
     remote.getGlobal("settings").maximized = win.isMaximized();
   };
@@ -828,6 +827,8 @@ window.onload = () => {
           stopWait();
           if(err) dialog.showErrorBox("Couldn't create index.html", err.message);
           else {
+            firstTime = true;
+            webFrame.setZoomFactor(1);
             webview.src = "index.html";
             win.setTitle("Unreel");
             notSaved(false);
@@ -870,6 +871,8 @@ window.onload = () => {
                 updateIndex();
                 lazy = presentation.querySelectorAll("img[data-src], video[data-src], source[data-src], audio[data-src], iframe[data-src]").length > 0;
                 props2.setValue("Lazy loading", lazy);
+                firstTime = true;
+                webFrame.setZoomFactor(1);
                 webview.src = "index.html";
                 win.setTitle("Unreel - " + path.basename(presentationPath, path.extname(presentationPath)));
                 notSaved(false);
@@ -1226,7 +1229,6 @@ window.onload = () => {
       if(remote.getGlobal("settings").fullscreen) win.setFullScreen(true);
       else if(remote.getGlobal("settings").maximized) win.maximize();
       else win.show();
-      webFrame.setZoomFactor(remote.getGlobal("settings").zoom);//Zoom factor should change after reveal loading
       webview.style.visibility = "visible";
       controls.style.visibility = "visible";
       firstTime = false;
