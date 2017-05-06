@@ -52,7 +52,7 @@ app.on("ready", () => {
 });
 
 app.on("browser-window-created", (e, win) => {
-  win.setIcon("icons/icon.png");
+  win.setIcon(path.join(__dirname, "icons/icon.png"));
   if(win.getTitle() == "reveal.js - Notes") {
     if(multiDisplay() && mainWindow.isFullScreen()){
       if(mainWindow.getBounds().x > 0) win.setBounds(primaryDisplay());
