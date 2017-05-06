@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=unreel
+Comment=Reveal your ideas. With Unreel you can create amazing REVEAL.JS presentations
+Exec="/opt/unreel/unreel"
+Terminal=false
+Type=Application
+Icon=unreel
+Categories=Office;
+MimeType=application/reel
