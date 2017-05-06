@@ -22,7 +22,7 @@ try {
   settings = fs.readJsonSync(path.join(dataPath, "settings"), {throws: false});
 } catch(err) {};
 if(settings) global.settings = Object.assign(global.settings, settings);
-if(process.platform !== "darwin" && !global.settings.haccel) app.disableHardwareAcceleration();
+if(!global.settings.haccel) app.disableHardwareAcceleration();
 
 app.on("ready", () => {
   if (process.argv.length > 1 && path.isAbsolute(process.argv[1]) && fs.existsSync(process.argv[1])) global.argv = process.argv[1];
@@ -49,7 +49,16 @@ app.on("ready", () => {
     splash.close();
     if(global.debug) mainWindow.show();
   });
+});
 
+app.on("browser-window-created", (e, win) => {
+  win.setIcon("icons/icon.png");
+  if(win.getTitle() == "reveal.js - Notes") {
+    if(multiDisplay() && mainWindow.isFullScreen()){
+      if(mainWindow.getBounds().x > 0) win.setBounds(primaryDisplay());
+      else win.setBounds(secondaryDisplay());
+    }
+  };
 });
 
 app.on("before-quit", (e) => {
@@ -89,6 +98,34 @@ function initialize() {
     }
   });
 };
+
+function multiDisplay() {
+  let scr = electron.screen.getPrimaryDisplay();
+  let scrs = electron.screen.getAllDisplays();
+  for(let s of scrs) {
+    if(s.id != scr.id && (s.bounds.x != scr.bounds.x || s.bounds.y != scr.bounds.y)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function primaryDisplay() {
+  return electron.screen.getPrimaryDisplay().bounds;
+}
+
+function secondaryDisplay() {
+  let scr = electron.screen.getPrimaryDisplay();
+  let scrs = electron.screen.getAllDisplays();
+  let scr2;
+  for(let s of scrs) {
+    if(s.id != scr.id && (s.bounds.x != scr.bounds.x || s.bounds.y != scr.bounds.y)) {
+      scr2 = s;
+      break;
+    }
+  }
+  return scr2.bounds;
+}
 
 app.on("open-file", function(event, pathToOpen) {
   if(path.isAbsolute(pathToOpen) && fs.existsSync(pathToOpen)) global.argv = pathToOpen;

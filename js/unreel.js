@@ -742,8 +742,11 @@ window.onload = () => {
     }
   }, false);
 
-  document.addEventListener("mousedown", (e) => {
+  document.addEventListener("mousedown", (e) => {console.log(Math.abs(win.getSize()[0] / 2 - e.clientX));
     if(!editing){
+      if(moveDownB.style.display == "block" && controls.style.visibility == "visible"
+      && win.getSize()[1] - e.clientY < 50 && Math.abs(win.getSize()[0] / 2 - e.clientX) < 50
+    ) return;//Avoid jump to other slide when clicking move slide down
       let m = [];
       if(e.ctrlKey) m.push("control");
       if(e.altKey) m.push("alt");
