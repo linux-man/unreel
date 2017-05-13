@@ -742,7 +742,7 @@ window.onload = () => {
     }
   }, false);
 
-  document.addEventListener("mousedown", (e) => {console.log(Math.abs(win.getSize()[0] / 2 - e.clientX));
+  document.addEventListener("mousedown", (e) => {
     if(!editing){
       if(moveDownB.style.display == "block" && controls.style.visibility == "visible"
       && win.getSize()[1] - e.clientY < 50 && Math.abs(win.getSize()[0] / 2 - e.clientX) < 50
