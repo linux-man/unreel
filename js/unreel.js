@@ -165,7 +165,8 @@ window.onload = () => {
       {title: "Subtitle", description: "Title, Subtitle and Content", content: "<h1>Title</h1><h2>Subtitle</h2><p>Text</p>"},
       {title: "2 Panels", description: "Title and 2 Horizontal Panels", content: "<h1>Title</h1><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 1</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 2</div>"},
       {title: "3 Panels", description: "Title and 3 Horizontal Panels", content: "<h1>Title</h1><div class=\"mceResizable\" style=\"width: 33%;float: left\">Panel 1</div><div class=\"mceResizable\" style=\"width: 33%;float: left\">Panel 2</div><div class=\"mceResizable\" style=\"width: 33%;float: left\">Panel 3</div>"},
-      {title: "4 Panels", description: "Title and 4 Panels", content: "<h1>Title</h1><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 1</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 2</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 3</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 4</div>"}
+      {title: "4 Panels", description: "Title and 4 Panels", content: "<h1>Title</h1><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 1</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 2</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 3</div><div class=\"mceResizable\" style=\"width: 50%;float: left\">Panel 4</div>"},
+      {title: "Code Block", description: "Syntax Highlighted Code Block", content: "<h1>Title</h1><pre><code>println(\"Hello world\")</code></pre>"}
     ],
     style_formats: [
       {title: "Headers", items: [
