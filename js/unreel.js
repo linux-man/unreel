@@ -508,10 +508,9 @@ window.onload = () => {
   .hideTitle("plain ")
   .hideControl("plain ");
 
-  newPresentation();
-  loadPresentation(path.join(appPath, "intro/Intro.reel"));
   let argv = remote.getGlobal("argv");
   if(argv) loadPresentation(argv);
+  else loadPresentation(path.join(appPath, "intro/Intro.reel"));
 
 //---------------------------------------  Editor states  --------------------------------
   function openEditor(mode) {
@@ -863,10 +862,16 @@ window.onload = () => {
       deleteTempFiles(() => {
         extract(presentationPath, {dir: tempPath}, (err) => {
           stopWait();
-          if(err) dialog.showErrorBox("Extration Error", err.message)
+          if(err) {
+            dialog.showErrorBox("Extration Error", err.message);
+            newPresentation();
+          }
           else {
             fs.readFile(path.join(tempPath, "index.html"), "utf8", (err, data) => {
-              if (err) dialog.showErrorBox("Index read error", err.message);
+              if (err) {
+                dialog.showErrorBox("Index read error", err.message);
+                newPresentation();
+              }
               else {
                 presentation.documentElement.innerHTML = data.substring(data.indexOf("<head>"), data.indexOf("</html>"));
                 let slides = presentation.querySelector("div.slides");
