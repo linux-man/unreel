@@ -140,7 +140,7 @@ function Hilitor(id, tag)
 
 			//find the keyword amongst the slides
 			myHilitor = new Hilitor("slidecontent");
-			matchedSlides = myHilitor.apply(searchstring);console.log(matchedSlides);
+			matchedSlides = myHilitor.apply(searchstring);
 			currentMatchedIndex = 0;
 		}
 
