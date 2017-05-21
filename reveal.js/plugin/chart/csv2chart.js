@@ -151,6 +151,7 @@ var RevealChart = window.RevealChart || (function(){
 						console.warn( 'Failed to get file ' + canvas.getAttribute("data-chart-src") + '. Make sure that the presentation and the file are served by a HTTP server and the file can be found there. ' + error );
 					}
 				}
+
 			}
 		}
 	}
@@ -175,6 +176,7 @@ var RevealChart = window.RevealChart || (function(){
 					canvases[i].chart.render();
 				}
 			}*/
+
 		});
 	});
 	return {initalizeCharts: initializeCharts};//cl

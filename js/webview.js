@@ -59,6 +59,7 @@
         else if(data.slideNumber == "false") o = false;
         else o = data.slideNumber;
         Reveal.configure({slideNumber: o});
+        Reveal.configure({showSlideNumber: data.showSlideNumber});
         Reveal.configure({progress: data.progress});
         Reveal.configure({showNotes: data.showNotes});
         Reveal.configure({transition: data.transition});
@@ -71,6 +72,9 @@
         Reveal.configure({shuffle: data.shuffle});
         Reveal.configure({autoSlide: data.autoSlide});
         Reveal.configure({autoSlideStoppable: data.autoSlideStoppable});
+        if(data.autoPlayMedia == "true") Reveal.configure({autoPlayMedia: true})
+        else if(data.autoPlayMedia == "false") Reveal.configure({autoPlayMedia: false})
+        else Reveal.configure({autoPlayMedia: null});
         if(data.parallaxBackgroundImage && data.parallaxBackgroundImage.trim() != "") {
           Reveal.configure({parallaxBackgroundImage: data.parallaxBackgroundImage});
           Reveal.configure({parallaxBackgroundSize: data.parallaxBackgroundSize});
@@ -83,6 +87,8 @@
           Reveal.configure({parallaxBackgroundHorizontal: null});
           Reveal.configure({parallaxBackgroundVertical: null});
         }
+        if(data.defaultTiming > 0) Reveal.configure({defaultTiming: data.defaultTiming});
+        else Reveal.configure({defaultTiming: null});
       }
       else {
         let props;

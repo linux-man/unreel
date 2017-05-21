@@ -56,6 +56,7 @@ window.onload = () => {
     dataTransition: "slide", //data-transition
     boolBackgroundTransition: false,
     backgroundTransition: "fade", //data-background-transition
+    dataTiming: 0, //data-timing
     plain: false,
     attributes: ""
   };
@@ -331,7 +332,8 @@ window.onload = () => {
   (value) => {attribs.backgroundTransition = value.value;})
   .setValue("Background effect", 1)
   .hideTitle("Background effect")
-  .hideControl("Background effect");
+  .hideControl("Background effect")
+  .addNumber("Slide timing", 0, 1200, 0, 1, (value) => {attribs.dataTiming = value;});
 
   let attribs4 = QuickSettings.create(0+170+170+170, 0, "", attributesPanel)
   .addBoolean("Attributes", false, (value) => {
@@ -365,9 +367,13 @@ window.onload = () => {
   .addNumber("Margin", 0, 20, 0.04, 0.01, (value) => {props.margin = value;})
   .addNumber("Min scale", 0.1, 1, 0.2, 0.1, (value) => {props.minScale = value;})
   .addNumber("Max scale", 1, 4, 2, 0.1, (value) => {props.maxScale = value;})
-  .addDropDown("Show slide number", [{label:"False", value:"false"}, {label:"Hor.Vert", value:"true"},
+  .addDropDown("Slide number", [{label:"No", value:"false"}, {label:"Hor.Vert", value:"true"},
   {label:"Hor/Vert", value:"h/v"}, {label:"Number", value:"c"}, {label:"Number/Total", value:"c/t"}],
   (value) => {props.slideNumber = value.value})
+  .setValue("Slide number", 0)
+  .addDropDown("Show slide number", [{label:"Everywhere", value:"all"}, {label:"Speaker notes", value:"speaker"},
+  {label:"Print", value:"print"}],
+  (value) => {props.showSlideNumber = value.value})
   .setValue("Show slide number", 0)
   .addBoolean("Show controls", true, (value) => {props.controls = value;})
   .addBoolean("Show progress", true, (value) => {props.progress = value;})
@@ -409,6 +415,10 @@ window.onload = () => {
   })
   .addBoolean("Stoppable", false, (value) => {props.autoSlideStoppable = value;})
   .hideControl("Stoppable")
+  .addDropDown("Media auto play", [{label:"Default", value:"null"},
+  {label:"All", value:"true"}, {label:"None", value:"false"}],
+  (value) => {props.autoPlayMedia = value.value;})
+  .setValue("Media auto play", 0)
   .addBoolean("Parallax", false, (value) => {
     if(value) {
       props3.showControl("Parallax image");
@@ -482,7 +492,8 @@ window.onload = () => {
   .hideControl("Horizontal shift")
   .hideControl("Vertical shift")
   .hideControl("Hs")
-  .hideControl("Vs");
+  .hideControl("Vs")
+  .addNumber("Slide timing", 0, 1200, 0, 1, (value) => {props.defaultTiming = value;});
 
   let props4 = QuickSettings.create(0+170+170+170, 0, "", propertiesPanel)
   .addBoolean("Properties", false, (value) => {
@@ -594,9 +605,9 @@ window.onload = () => {
           }
         }
         else {
-          if (attribs.boolBackgroundColor) current.setAttribute("data-background-color", attribs.backgroundColor);
+          if(attribs.boolBackgroundColor) current.setAttribute("data-background-color", attribs.backgroundColor);
           else current.removeAttribute("data-background-color");
-          if (attribs.boolBackgroundImage && attribs.backgroundImage.trim() != "") {
+          if(attribs.boolBackgroundImage && attribs.backgroundImage.trim() != "") {
             current.setAttribute("data-background-image", attribs.backgroundImage);
             current.setAttribute("data-background-size", attribs.backgroundSize);
             current.setAttribute("data-background-position", attribs.backgroundPosition);
@@ -608,7 +619,7 @@ window.onload = () => {
             current.removeAttribute("data-background-position");
             current.removeAttribute("data-background-repeat");
           }
-          if (attribs.boolBackgroundVideo && attribs.backgroundVideo.trim() != "") {
+          if(attribs.boolBackgroundVideo && attribs.backgroundVideo.trim() != "") {
             current.setAttribute("data-background-video", attribs.backgroundVideo);
             if(attribs.backgroundVideoLoop) current.setAttribute("data-background-video-loop", true)
             else current.removeAttribute("data-background-video-loop");
@@ -620,10 +631,12 @@ window.onload = () => {
             current.removeAttribute("data-background-video-loop");
             current.removeAttribute("data-background-video-muted");
           }
-          if (attribs.boolBackgroundTransition) current.setAttribute("data-background-transition", attribs.backgroundTransition);
+          if(attribs.boolBackgroundTransition) current.setAttribute("data-background-transition", attribs.backgroundTransition);
           else current.removeAttribute("data-background-transition");
-          if (attribs.boolDataTransition) current.setAttribute("data-transition", attribs.dataTransition);
+          if(attribs.boolDataTransition) current.setAttribute("data-transition", attribs.dataTransition);
           else current.removeAttribute("data-transition");
+          if(attribs.dataTiming > 0) current.setAttribute("data-timing", attribs.dataTiming);
+          else current.removeAttribute("data-timing");
         }
         webview.send("updateAttribs", attribToObj(current.attributes));
         updateIndex();
@@ -1020,10 +1033,11 @@ window.onload = () => {
     props1.setValue("Margin", p.margin);
     props1.setValue("Min scale", p.minScale);
     props1.setValue("Max scale", p.maxScale);
-    if(p.slideNumber == false || p.slideNumber == "false") props1.setValue("Show slide number", 0);
-    else if(p.slideNumber == true || p.slideNumber == "true") props1.setValue("Show slide number", 1);
-    else if(["h/v", "c", "c/t"].includes(p.slideNumber)) props1.setValue("Show slide number", ["h/v", "c", "c/t"].indexOf(p.slideNumber) + 2);
+    if(p.slideNumber == false || p.slideNumber == "false") props1.setValue("Slide number", 0);
+    else if(p.slideNumber == true || p.slideNumber == "true") props1.setValue("Slide number", 1);
+    else if(["h/v", "c", "c/t"].includes(p.slideNumber)) props1.setValue("Slide number", ["h/v", "c", "c/t"].indexOf(p.slideNumber) + 2);
     else props4.setValue("Properties", true);
+    props1.setValue("Show slide number", ["all", "speaker", "print"].indexOf(p.showSlideNumber));
     props1.setValue("Show controls", p.controls);
     props1.setValue("Show progress", p.progress);
     props1.setValue("Show notes", p.showNotes);
@@ -1047,6 +1061,9 @@ window.onload = () => {
     props2.setValue("Lazy loading", lazy);
     props3.setValue("Auto slide (A)", p.autoSlide);
     props3.setValue("Stoppable", p.autoSlideStoppable);
+    if(p.autoPlayMedia == true || p.autoPlayMedia == "true") props3.setValue("Media auto play", 1)
+    else if(p.autoPlayMedia == false || p.autoPlayMedia == "false") props3.setValue("Media auto play", 2)
+    else props3.setValue("Media auto play", 0);
     props3.setValue("Parallax", p.parallaxBackgroundImage != "");
     props3.setValue("Parallax image", p.parallaxBackgroundImage);
     if(p.parallaxBackgroundHorizontal) {
@@ -1063,6 +1080,7 @@ window.onload = () => {
     else {
       props3.setValue("Vertical shift", false);
     }
+    props3.setValue("Slide timing", p.defaultTiming);
     delete p.theme;
     try {
       props4.setValue("plain ", window.beautify(JSON.stringify(p), {format: "json"}));
@@ -1086,6 +1104,7 @@ window.onload = () => {
     attribs3.setValue("Slide effect", 2);
     attribs3.setValue("Background transition", false);
     attribs3.setValue("Background effect", 1);
+    attribs3.setValue("Slide timing", 0);
     attribs4.setValue("Attributes", false);
     attribs4.setValue("plain", "");
   }
@@ -1141,6 +1160,7 @@ window.onload = () => {
       else attribs4.setValue("Attributes", true);
     }
     else attribs3.setValue("Background transition", false);
+    attribs3.setValue("Slide timing", a["data-timing"] || "");
     let attributes = "";
     for(let key in a) {
       attributes += key;
@@ -1209,6 +1229,11 @@ window.onload = () => {
     if(config.parallaxBackgroundSize == "") delete config.parallaxBackgroundSize;
     if(config.parallaxBackgroundHorizontal == null) delete config.parallaxBackgroundHorizontal;
     if(config.parallaxBackgroundVertical == null) delete config.parallaxBackgroundVertical;
+    if(config.defautTiming == null) delete config.defaultTiming;
+    if(config.autoPlayMedia == null) delete config.autoPlayMedia;
+    if(config.display == "block") delete config.display;
+    if(config.pdfPageHeightOffset == -1) delete config.pdfPageHeightOffset;
+    if(config.showSlideNumber == "all") delete config.showSlideNumber;
     if(config.pdfMaxPagesPerSlide == Number.POSITIVE_INFINITY) delete config.pdfMaxPagesPerSlide;
     if(config.viewDistance == 3) delete config.viewDistance;
     let inner = "Reveal.initialize({";

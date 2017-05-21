@@ -32,11 +32,34 @@ var RevealNotes = (function() {
 		function connect() {
 			// Keep trying to connect until we get a 'connected' message back
 			var connectInterval = setInterval( function() {
+				var timings = [];//cl
+				var defaultTiming = Reveal.getConfig().defaultTiming;
+				if (defaultTiming == undefined || defaultTiming == null) timings = null;
+				else {
+					var slides = Reveal.getSlides();
+					for ( var i in slides ) {
+						var slide = slides[i];
+						var timing = defaultTiming;
+						if( slide.hasAttribute( 'data-timing' )) {
+							var t = slide.getAttribute( 'data-timing' );
+							timing = parseInt(t);
+							if( isNaN(timing) ) {
+								console.warn("Could not parse timing '" + t + "' of slide " + i + "; using default of " + defaultTiming);
+								timing = defaultTiming;
+							}
+						}
+						timings.push(timing);
+					}//cl
+				}
+
 				notesPopup.postMessage( JSON.stringify( {
 					namespace: 'reveal-notes',
 					type: 'connect',
 					url: window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search,
-					state: Reveal.getState()
+					state: Reveal.getState(),
+					timings: timings,//cl
+					slidePastCount: Reveal.getSlidePastCount(),//cl
+					defaultTiming: Reveal.getConfig().defaultTiming//cl
 				} ), '*' );
 			}, 500 );
 
@@ -54,10 +77,11 @@ var RevealNotes = (function() {
 		/**
 		 * Posts the current slide data to the notes window
 		 */
-		function post(event) {
+		function post( event ) {
 
 			var slideElement = Reveal.getCurrentSlide(),
-				notesElement = slideElement.querySelector( 'aside.notes' );
+				notesElement = slideElement.querySelector( 'aside.notes' ),
+				fragmentElement = slideElement.querySelector( '.current-fragment' );
 
 			var messageData = {
 				namespace: 'reveal-notes',
@@ -65,22 +89,29 @@ var RevealNotes = (function() {
 				notes: '',
 				markdown: false,
 				whitespace: 'normal',
-				state: Reveal.getState()
+				state: Reveal.getState(),
+				slidePastCount: Reveal.getSlidePastCount()//cl
 			};
-
-			// Look for notes defined in a fragment, if it is a fragmentshown event
-			if (event && event.hasOwnProperty('fragment')) {
-				var innerNotes = event.fragment.querySelector( 'aside.notes' );
-
-				if ( innerNotes) {
-					notesElement = innerNotes;
-				}
-			}
 
 			// Look for notes defined in a slide attribute
 			if( slideElement.hasAttribute( 'data-notes' ) ) {
 				messageData.notes = slideElement.getAttribute( 'data-notes' );
 				messageData.whitespace = 'pre-wrap';
+			}
+
+			// Look for notes defined in a fragment
+			if( fragmentElement ) {
+				var fragmentNotes = fragmentElement.querySelector( 'aside.notes' );
+				if( fragmentNotes ) {
+					notesElement = fragmentNotes;
+				}
+				else if( fragmentElement.hasAttribute( 'data-notes' ) ) {
+					messageData.notes = fragmentElement.getAttribute( 'data-notes' );
+					messageData.whitespace = 'pre-wrap';
+
+					// In case there are slide notes
+					notesElement = null;
+				}
 			}
 
 			// Look for notes defined in an aside element

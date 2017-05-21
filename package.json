@@ -1,6 +1,6 @@
 {
   "name": "unreel",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "GPL-3.0",
   "description": "Reveal your ideas. With Unreel you can create amazing REVEAL.JS presentations",
   "author": "Caldas Lopes <joao.caldas.lopes@gmail.com>",
@@ -57,8 +57,8 @@
     "url": "https://github.com/linux-man/unreel/issues"
   },
   "devDependencies": {
-    "electron": "^1.6.7",
-    "electron-builder": "^17.8.0",
+    "electron": "^1.6.8",
+    "electron-builder": "^17.9.0",
     "electron-packager": "^8.7.0"
   },
   "dependencies": {

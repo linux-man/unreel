@@ -120,7 +120,6 @@
     <webview id="webview" allowpopups></webview>
     <script>window.$ = window.jQuery = require(appPath + '/js/jquery.min.js');</script>
     <script type="text/javascript">
-      document.querySelector("#webview").setAttribute("preload", appPath + "/js/webview.js");
       let script = document.createElement("script");
       script.setAttribute("type", "text/javascript");
       script.setAttribute("src", appPath + "/js/tinymce/plugins/equationeditor/mathquill.min.js");
@@ -137,6 +136,7 @@
       script.setAttribute("type", "text/javascript");
       script.setAttribute("src", appPath + "/js/unreel.js");
       document.querySelector("head").appendChild(script);
+      document.querySelector("#webview").setAttribute("preload", appPath + "/js/webview.js");
     </script>
   </body>
 </html>

@@ -26,7 +26,7 @@ if(!global.settings.haccel) app.disableHardwareAcceleration();
 
 app.on("ready", () => {
   if (process.argv.length > 1 && path.isAbsolute(process.argv[1]) && fs.existsSync(process.argv[1])) global.argv = process.argv[1];
-  mainWindow = new BrowserWindow({width: 800, height: 560, minWidth: 800, minHeight: 560, icon:path.join(__dirname, "icons/icon.png"), show: false});
+  mainWindow = new BrowserWindow({width: 900, height: 600, minWidth: 900, minHeight: 600, icon:path.join(__dirname, "icons/icon.png"), show: false});
   splash = new BrowserWindow({width: 600, height: 450, icon:path.join(__dirname, "icons/icon.png"), center: true, alwaysOnTop: true, frame: false, title: "Loading...", parent: mainWindow, show: false});
   splash.loadURL("file://" + path.join(__dirname, "splash/splash.html"));
   initialize();
