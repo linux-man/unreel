@@ -2,6 +2,8 @@
 
 **Reveal your ideas**
 
+![Screenshot](https://raw.githubusercontent.com/linux-man/unreel/master/screenshot.jpg)
+
 A GUI to create Reveal presentations.
 
 #### License [GPL-3+](LICENSE)
