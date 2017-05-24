@@ -1,11 +1,11 @@
 Package: unreel
-Version: 1.1.0
+Version: 1.2.0
 License: GPL-3.0
 Vendor: Caldas Lopes <joao.caldas.lopes@gmail.com>
 Architecture: amd64
 Maintainer: Caldas Lopes <joao.caldas.lopes@gmail.com>
-Installed-Size: 145639
-Depends: gconf2, gconf-service, libnotify4, libappindicator1, libxtst6, libnss3
+Installed-Size: 155262
+Depends: gconf2, gconf-service, libnotify4, libappindicator1, libxtst6, libnss3, libxss1
 Section: Contrib
 Priority: extra
 Homepage: https://github.com/linux-man/unreel#readme
