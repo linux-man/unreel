@@ -17,7 +17,7 @@
 
     Reveal.addEventListener("overviewhidden", (event) => {ipc.sendToHost("overview", false);});
 
-    //-------------------------------------- Messages from main ----------------------------
+  //-------------------------------------- Messages from main ----------------------------
     ipc.on("startEdit", (event, data) => {Reveal.getCurrentSlide().style.display = "none";});
 
     ipc.on("stopEdit", (event, data) => {
@@ -54,6 +54,7 @@
         Reveal.configure({minScale: data.minScale});
         Reveal.configure({maxScale: data.maxScale});
         Reveal.configure({controls: data.controls});
+        Reveal.configure({controlsLayout: data.controlsLayout});
         let o;
         if(data.slideNumber == "true") o = true;
         else if(data.slideNumber == "false") o = false;
@@ -61,11 +62,11 @@
         Reveal.configure({slideNumber: o});
         Reveal.configure({showSlideNumber: data.showSlideNumber});
         Reveal.configure({progress: data.progress});
-        Reveal.configure({showNotes: data.showNotes});
         Reveal.configure({transition: data.transition});
         Reveal.configure({backgroundTransition: data.backgroundTransition});
         Reveal.configure({transitionSpeed: data.transitionSpeed});
         Reveal.configure({center: data.center});
+        Reveal.configure({showNotes: data.showNotes});
         Reveal.configure({loop: data.loop});
         Reveal.configure({pause: data.pause});
         Reveal.configure({fragments: data.fragments});

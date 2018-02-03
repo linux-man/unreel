@@ -1,26 +1,27 @@
 // Custom reveal.js integration
 (function(){
-	var isEnabled = true;
+	var revealElement = document.querySelector( '.reveal' );
+	if( revealElement ) {
 
-	document.querySelector( '.reveal .slides' ).addEventListener( 'mousedown', function( event ) {
-		var modifier = ( Reveal.getConfig().zoomKey ? Reveal.getConfig().zoomKey : 'ctrl' ) + 'Key';//cl
-		var zoomLevel = ( Reveal.getConfig().zoomLevel ? Reveal.getConfig().zoomLevel : 2 );
+		revealElement.addEventListener( 'mousedown', function( event ) {
+			var defaultModifier = /Linux/.test( window.navigator.platform ) ? 'ctrl' : 'alt';
 
-		if( event[ modifier ] && isEnabled ) {
-			event.preventDefault();
+			var modifier = ( Reveal.getConfig().zoomKey ? Reveal.getConfig().zoomKey : defaultModifier ) + 'Key';
+			var zoomLevel = ( Reveal.getConfig().zoomLevel ? Reveal.getConfig().zoomLevel : 2 );
 
-			zoom.to({
-				x: event.clientX - window.innerWidth / (zoomLevel * 2),//cl
-				y: event.clientY - window.innerHeight / (zoomLevel * 2),
-				width: window.innerWidth / zoomLevel,
-				height: window.innerHeight / zoomLevel,
-				pan: false
-			});
-		}
-	} );
+			if( event[ modifier ] && !Reveal.isOverview() ) {
+				event.preventDefault();
 
-	Reveal.addEventListener( 'overviewshown', function() { isEnabled = false; } );
-	Reveal.addEventListener( 'overviewhidden', function() { isEnabled = true; } );
+				zoom.to({
+					x: event.clientX,
+					y: event.clientY,
+					scale: zoomLevel,
+					pan: false
+				});
+			}
+		} );
+
+	}
 })();
 
 /*!

@@ -376,8 +376,10 @@ window.onload = () => {
   (value) => {props.showSlideNumber = value.value})
   .setValue("Show slide number", 0)
   .addBoolean("Show controls", true, (value) => {props.controls = value;})
-  .addBoolean("Show progress", true, (value) => {props.progress = value;})
-  .addBoolean("Show notes", false, (value) => {props.showNotes = value;});
+  .addDropDown("Controls layout", [{label:"Bottom-right", value:"bottom-right"}, {label:"Edges", value:"edges"}],
+  (value) => {props.controlsLayout = value.value})
+  .setValue("Controls layout", 0)
+  .addBoolean("Show progress", true, (value) => {props.progress = value;});
 
   let props2 = QuickSettings.create(0+170, 0, "", propertiesPanel)
   .addDropDown("Theme", [{label:"Black", value:"black"}, {label:"White", value:"white"},
@@ -404,6 +406,7 @@ window.onload = () => {
   .addBoolean("Enable pause (B)", true, (value) => {props.pause = value;})
   .addBoolean("Enable fragments", true, (value) => {props.fragments = value;})
   .addBoolean("Center slides", true, (value) => {props.center = value;})
+  .addBoolean("Show notes", false, (value) => {props.showNotes = value;})
   .addBoolean("Shuffle (on load)", false, (value) => {props.shuffle = value;})
   .addBoolean("Lazy loading", false, (value) => {});
 
@@ -887,10 +890,6 @@ window.onload = () => {
               }
               else {
                 presentation.documentElement.innerHTML = data.substring(data.indexOf("<head>"), data.indexOf("</html>"));
-                let slides = presentation.querySelector("div.slides");
-                presentation.documentElement.innerHTML = newContent;
-                presentation.querySelector("div.slides").innerHTML = slides.innerHTML;
-                updateIndex();
                 lazy = presentation.querySelectorAll("img[data-src], video[data-src], source[data-src], audio[data-src], iframe[data-src]").length > 0;
                 props2.setValue("Lazy loading", lazy);
                 firstTime = true;
@@ -1039,8 +1038,10 @@ window.onload = () => {
     else props4.setValue("Properties", true);
     props1.setValue("Show slide number", ["all", "speaker", "print"].indexOf(p.showSlideNumber));
     props1.setValue("Show controls", p.controls);
+    if(["bottom-right", "edges"].includes(p.controlsLayout))
+    props1.setValue("Controls layout", ["bottom-right", "edges"].indexOf(p.controlsLayout));
+    else props4.setValue("Properties", true);
     props1.setValue("Show progress", p.progress);
-    props1.setValue("Show notes", p.showNotes);
     if(["black", "white", "league", "sky", "beige", "simple", "serif", "blood", "night", "moon", "solarized"].includes(p.theme))
     props2.setValue("Theme", ["black", "white", "league", "sky", "beige", "simple", "serif", "blood", "night", "moon", "solarized"].indexOf(p.theme))
     else props4.setValue("Properties", true);
@@ -1058,6 +1059,7 @@ window.onload = () => {
     props2.setValue("Enable fragments", p.fragments);
     props2.setValue("Shuffle (on load)", p.shuffle);
     props2.setValue("Center slides", p.center);
+    props2.setValue("Show notes", p.showNotes);
     props2.setValue("Lazy loading", lazy);
     props3.setValue("Auto slide (A)", p.autoSlide);
     props3.setValue("Stoppable", p.autoSlideStoppable);
@@ -1196,6 +1198,9 @@ window.onload = () => {
     if(config.minScale == 0.2) delete config.minScale;
     if(config.maxScale == 2) delete config.maxScale;
     if(config.controls == true) delete config.controls;
+    if(config.controlsLayout == "bottom-right") delete config.controlsLayout;
+    if(config.controlsTutorial == true) delete config.controlsTutorial;
+    if(config.controlsBackArrows == "fade") delete config.controlsBackArrows;
     if(config.progress == true) delete config.progress;
     if(config.slideNumber == false || config.slideNumber == "false") delete config.slideNumber;
     if(config.history == false) delete config.history;
