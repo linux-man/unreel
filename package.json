@@ -56,7 +56,7 @@
     "url": "https://github.com/linux-man/unreel/issues"
   },
   "devDependencies": {
-    "electron": "^1.7.12",
+    "electron": "~1.7.12",
     "electron-builder": "^18.8.1",
     "electron-packager": "^8.7.2"
   },
