@@ -17,7 +17,7 @@ window.onload = () => {
   const sanitize = require(path.join(appPath,"/node_modules/sanitize-filename"));
 
 //---------------------------------------  Initialize, Find and Hide elements  -----------
-  const win = BrowserWindow.getAllWindows()[0];
+  const win = BrowserWindow.getAllWindows()[1];
   const tempPath = remote.getGlobal("tempPath");
   if(remote.getGlobal("debug")) win.openDevTools();
   const dependencies = '[\n{src: "plugin/notes/notes.js", async: true},'
