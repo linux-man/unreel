@@ -2,7 +2,7 @@
  * plugin.js
  *
  * Released under LGPL License.
- * Copyright (c) 2017 Caldas Lopes All rights reserved
+ * Copyright (c) 2018 Caldas Lopes All rights reserved
  *
  * License: http://www.tinymce.com/license
  */
@@ -63,6 +63,9 @@ tinymce.PluginManager.add("fragment", function(editor, url) {
 				{type: "listbox", name: "direction", label: "Direction", values: [
 					{text: "In", value: "in"},
 					{text: "Out", value: "out"},
+					{text: "Semi out", value: "semi-fade-out"},
+					{text: "In then out", value: "in-then-out"},
+					{text: "In then semi out", value: "in-then-semi-out"},
 					{text: "Up", value: "up"},
 					{text: "Down", value: "down"},
 					{text: "Left", value: "left"},
@@ -80,6 +83,7 @@ tinymce.PluginManager.add("fragment", function(editor, url) {
 				}
 				let transition = e.data.transition;
 				if(transition == "fade-") transition += e.data.direction;
+				if(e.data.direction == "semi-fade-out") transition = "semi-fade-out";
 				if(transition.includes("highlight-")) transition += e.data.color;
 				let order;
 				if(Number.isInteger(parseInt(e.data.order))) order = parseInt(e.data.order);
@@ -101,7 +105,10 @@ tinymce.PluginManager.add("fragment", function(editor, url) {
 			else if(elm.className.includes("shrink")) transition.value("shrink");
 			else if(elm.className.includes("fade-")) {
 				transition.value("fade-");
-				if(elm.className.includes("fade-in")) direction.value("in");
+				if(elm.className.includes("fade-in-then-semi-out")) direction.value("in-then-semi-out");
+				else if(elm.className.includes("fade-in-then-out")) direction.value("in-then-out");
+				else if(elm.className.includes("semi-fade-out")) direction.value("semi-fade-out");
+				else if(elm.className.includes("fade-in")) direction.value("in");
 				else if(elm.className.includes("fade-out")) direction.value("out");
 				else if(elm.className.includes("fade-up")) direction.value("up");
 				else if(elm.className.includes("fade-down")) direction.value("down");

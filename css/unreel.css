@@ -14,9 +14,9 @@ img::selection { background-color: transparent; }
 }
 
 .reveal .slides section .fragment {
-  opacity: 1;
-  visibility: visible;
-  border: solid white 2px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border: solid white 2px !important;
 }
 
 div[data-chart] {
